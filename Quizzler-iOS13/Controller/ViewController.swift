@@ -11,8 +11,9 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
-    @IBOutlet weak var trueBtn: UIButton!
-    @IBOutlet weak var falseBtn: UIButton!
+    @IBOutlet weak var BtnOption1: UIButton!
+    @IBOutlet weak var BtnOption2: UIButton!
+    @IBOutlet weak var BtnOption3: UIButton!
     @IBOutlet weak var scoreLabel: UILabel!
     var quizLogic = QuizLogic()
     @IBAction func qAnswered(_ sender: UIButton) {
@@ -28,11 +29,17 @@ class ViewController: UIViewController {
     }
     
     @objc func updateUI() {
+        let buttons = [BtnOption1, BtnOption2, BtnOption3]
+        var qOptions = quizLogic.getQuestionOptions()
+        
         scoreLabel.text = "Score: \(quizLogic.getScore())"
         questionLabel.text = quizLogic.getQuestionText()
         progressBar.progress = quizLogic.getProgress()
-        trueBtn.backgroundColor = UIColor.clear
-        falseBtn.backgroundColor = UIColor.clear
+        
+        for i in 0..<buttons.count{
+            buttons[i]!.backgroundColor = UIColor.clear
+            buttons[i]!.setTitle(qOptions[i],for: .normal)
+        }
     }
 }
 
